@@ -67,9 +67,19 @@
 
 <script>
 import { f7ready } from "framework7-vue";
+import { useQuasar } from "quasar";
 
 export default {
   name: "MainLayout",
+  setup() {
+    const $q = useQuasar();
+
+    let theme = $q.platform.is.mobile ? "ios" : "aurora";
+
+    return {
+      theme,
+    };
+  },
   mounted() {
     f7ready((f7) => {
       f7.dialog.alert("Component mounted");
@@ -81,7 +91,7 @@ export default {
         name: "My App",
         id: "com.myapp.test",
         // md, auto, ios, aurora
-        theme: "aurora",
+        theme: this.theme,
         // routes: [
         //   {
         //     path: "/about/",
