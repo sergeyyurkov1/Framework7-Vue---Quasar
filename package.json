@@ -1,8 +1,8 @@
 {
   "name": "test4",
   "version": "0.0.1",
-  "description": "A Quasar Project",
-  "productName": "Quasar App",
+  "description": "Framework7-Vue + Quasar",
+  "productName": "Framework7-Quasar",
   "author": "Sergey Yurkov <38420364+sergeyyurkov1@users.noreply.github.com>",
   "private": true,
   "scripts": {
