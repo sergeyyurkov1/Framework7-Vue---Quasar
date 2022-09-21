@@ -1,116 +1,99 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+  <f7-app v-bind="f7params">
+    <!-- Left Panel with "cover" effect -->
+    <f7-panel left cover>
+      <f7-view>
+        <f7-page>
+          <f7-navbar title="Left Panel"></f7-navbar>
+          <f7-block>
+            <p>Here comes the left panel text</p>
+          </f7-block>
+        </f7-page>
+      </f7-view>
+    </f7-panel>
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+    <!-- Right Panel with "reveal" effect -->
+    <f7-panel right reveal>
+      <f7-view>
+        <f7-page>
+          <f7-navbar title="Right Panel"></f7-navbar>
+          <f7-block>
+            <p>Here comes the right panel text</p>
+          </f7-block>
+        </f7-page>
+      </f7-view>
+    </f7-panel>
 
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
+    <!-- Main view-->
+    <f7-view main>
+      <f7-page>
+        <f7-navbar title="Awesome App"></f7-navbar>
+        <!-- Page content -->
+        <f7-block>
+          <p>Here comes main view page text</p>
+        </f7-block>
+        <!-- Buttons to open panels -->
+        <f7-row>
+          <f7-col>
+            <f7-button panel-open="left">Left Panel</f7-button>
+          </f7-col>
+          <f7-col>
+            <f7-button panel-open="right">Right Panel</f7-button>
+          </f7-col>
+        </f7-row>
+        <!-- Button to open popup -->
+        <f7-button popup-open="#my-popup">Open Popup</f7-button>
+      </f7-page>
+    </f7-view>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
-
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+    <!-- Popup. All modals should be outside of Views -->
+    <f7-popup id="my-popup">
+      <f7-view>
+        <f7-page>
+          <f7-navbar title="Popup">
+            <!-- Link to close popup -->
+            <f7-nav-right>
+              <f7-link popup-close>Close</f7-link>
+            </f7-nav-right>
+          </f7-navbar>
+          <f7-block>
+            <p>Here comes popup text</p>
+          </f7-block>
+        </f7-page>
+      </f7-view>
+    </f7-popup>
+  </f7-app>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+import { f7ready } from "framework7-vue";
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+export default {
+  name: "MainLayout",
+  mounted() {
+    f7ready((f7) => {
+      f7.dialog.alert("Component mounted");
+    });
   },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
-
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {
-    EssentialLink
-  },
-
-  setup () {
-    const leftDrawerOpen = ref(false)
-
+  data() {
     return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+      f7params: {
+        name: "My App",
+        id: "com.myapp.test",
+        // md, auto, ios, aurora
+        theme: "aurora",
+        // routes: [
+        //   {
+        //     path: "/about/",
+        //     component: AboutPage,
+        //   },
+        //   {
+        //     path: "/services/",
+        //     component: ServicesPage,
+        //   },
+        // ],
+      },
+    };
+  },
+};
 </script>

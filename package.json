@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "framework7": "^7.0.8",
     "framework7-vue": "^7.0.8",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
